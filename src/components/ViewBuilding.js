@@ -10,19 +10,16 @@ function ViewBuilding(props) {
 		})
 		.map(building => {
 			return (
-				<table>
-					<tr key={building.id}>
-						<td>{building.code} </td>
-						<td> {building.name} </td>							
-					</tr>
-					<tr>
-						<td>{building.address}</td>
-					</tr>
+				<table>					
+					<tr>{building.code}</tr>
+					<tr>{building.name}</tr>
+					{building.address && <tr>{building.address}</tr>}
+					{building.coordinates && <tr>Lat: {building.coordinates.latitude}</tr>}
+					{building.coordinates && <tr>Long: {building.coordinates.longitude}</tr>}
 				</table>
 			);
 		});
 	
-		//console.log('Viewing Selected Building:', building);
 	return (
 		<div>
 			<p>

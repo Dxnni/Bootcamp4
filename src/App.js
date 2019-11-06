@@ -9,7 +9,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       filterText: '',
-      selectedBuilding: 0
+      selectedBuilding: 0,
+      data: this.props.data
     };
   }
 
@@ -24,6 +25,19 @@ class App extends React.Component {
     //Here you will need to update the selectedBuilding property of state to the id passed into this function
     this.setState({
       selectedBuilding: id
+    });
+  }
+
+  removeBuilding(id){
+    let newData = this.state.data;
+    newData.forEach((value, index) => {
+      if(value.id === id){
+        newData.splice(index, 1);
+      }
+    })
+
+    this.setState({
+      data: newData
     });
   }
 
@@ -49,7 +63,7 @@ class App extends React.Component {
                     </td>
                   </tr>
                   <BuildingList
-                    data={this.props.data}
+                    data={this.state.data}
                     filterText={this.state.filterText}
                     selectedUpdate={this.selectedUpdate.bind(this)}
                   />
@@ -58,8 +72,9 @@ class App extends React.Component {
             </div>
             <div className="column2">
               <ViewBuilding
-                data={this.props.data}
+                data={this.state.data}
                 selectedBuilding={this.state.selectedBuilding}
+                removeBuilding={this.removeBuilding.bind(this)}
                 />
             </div>
           </div>

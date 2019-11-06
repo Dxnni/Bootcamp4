@@ -1,8 +1,9 @@
 import React from 'react';
+import RemoveBuilding from './RemoveBuilding';
 
 function ViewBuilding(props) {
 
-	const { data, selectedBuilding } = props;
+	const { data, selectedBuilding, removeBuilding } = props;
 
 	const viewBuilding = data
 		.filter(building => {
@@ -10,13 +11,19 @@ function ViewBuilding(props) {
 		})
 		.map(building => {
 			return (
-				<table>					
-					<tr>{building.code}</tr>
-					<tr>{building.name}</tr>
-					{building.address && <tr>{building.address}</tr>}
-					{building.coordinates && <tr>Lat: {building.coordinates.latitude}</tr>}
-					{building.coordinates && <tr>Long: {building.coordinates.longitude}</tr>}
-				</table>
+				<div>
+					<table>					
+						<tr>{building.code}</tr>
+						<tr>{building.name}</tr>
+						{building.address && <tr>{building.address}</tr>}
+						{building.coordinates && <tr>Lat: {building.coordinates.latitude}</tr>}
+						{building.coordinates && <tr>Long: {building.coordinates.longitude}</tr>}
+					</table>
+					<RemoveBuilding
+						selectedBuilding={selectedBuilding}
+						removeBuilding={removeBuilding}
+					/>
+				</div>
 			);
 		});
 	
@@ -26,7 +33,7 @@ function ViewBuilding(props) {
 				{' '}
 				<i>Click on a name to view more information</i>				
 			</p>
-			<div>{viewBuilding}</div>
+			{viewBuilding}			
 		</div>
 	);
 }
